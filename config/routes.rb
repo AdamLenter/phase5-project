@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get '/hello', to: 'application#hello_world'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-
-  Rails.application.routes.draw do
-    # route to test your configuration
-    get '/hello', to: 'application#hello_world'
-  end
+  get '*path',
+      to: 'fallback#index',
+      constraints: ->(req) { !req.xhr? && req.format.html? }
 end
